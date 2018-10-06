@@ -4,10 +4,8 @@ var passport = require('passport');
 var Promise = require('bluebird');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy = require('passport-twitter').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 var secrets = require('./secrets');
 var db = require('../models/sequelize');
@@ -95,27 +93,6 @@ passport.use(new GitHubStrategy(secrets.github, function(req, accessToken, refre
 }));
 
 /**
- * Sign in with Twitter.
- */
-passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tokenSecret, profile, done) {
-  if (req.user) {
-    UserRepo.linkTwitterProfile(req.user.id, accessToken, tokenSecret, profile)
-      .then(function(user) {
-        req.flash('info', { msg: 'Twitter account has been linked.' });
-        done(null, user);
-      })
-      .catch(function(err) {
-        req.flash('errors', { msg: err });
-        done(null, false, { message: err });
-      });
-  } else {
-    UserRepo.createAccFromTwitter(accessToken, tokenSecret, profile)
-      .then(function(user) { done(null, user); })
-      .catch(function(error) { done(error); });
-  }
-}));
-
-/**
  * Sign in with Google.
  */
 passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refreshToken, profile, done) {
@@ -131,27 +108,6 @@ passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refre
       });
   } else {
     UserRepo.createAccFromGoogle(accessToken, refreshToken, profile)
-      .then(function(user) { done(null, user); })
-      .catch(function(error) { done(error); });
-  }
-}));
-
-/**
- * Sign in with LinkedIn.
- */
-passport.use(new LinkedInStrategy(secrets.linkedin, function(req, accessToken, refreshToken, profile, done) {
-  if (req.user) {
-    UserRepo.linkLinkedInProfile(req.user.id, accessToken, refreshToken, profile)
-      .then(function(user) {
-        req.flash('info', { msg: 'LinkedIn account has been linked.' });
-        done(null, user);
-      })
-      .catch(function(err) {
-        req.flash('errors', { msg: err });
-        done(null, false, { message: err });
-      });
-  } else {
-    UserRepo.createAccFromLinkedIn(accessToken, refreshToken, profile)
       .then(function(user) { done(null, user); })
       .catch(function(error) { done(error); });
   }

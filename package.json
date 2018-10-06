@@ -7,7 +7,7 @@
     "url": "https://github.com/yhnavein/express-starter.git"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "NODE_ENV=test mocha",
     "test-ci": "NODE_ENV=test-travis mocha --reporter spec",
     "test-debug": "NODE_ENV=test node_modules/.bin/mocha --debug --debug-brk"
@@ -31,6 +31,7 @@
     "express": "^4.13.4",
     "express-flash": "0.0.2",
     "express-session": "^1.13.0",
+    "express-subdomain": "^1.0.5",
     "express-validator": "^2.20.4",
     "fbgraph": "^1.1.0",
     "github-api": "^1.2.1",
@@ -45,13 +46,12 @@
     "multer": "^1.1.0",
     "neo-async": "^1.8.2",
     "node-linkedin": "^0.5.3",
+    "nodemon": "^1.18.4",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.0",
     "passport-github": "^1.1.0",
     "passport-google-oauth": "^1.0.0",
-    "passport-linkedin-oauth2": "^1.4.0",
     "passport-local": "^1.0.0",
-    "passport-twitter": "^1.0.4",
     "paypal-rest-sdk": "^1.6.8",
     "pg": "^4.5.5",
     "pg-hstore": "^2.3.2",

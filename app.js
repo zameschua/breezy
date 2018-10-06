@@ -31,6 +31,7 @@ var subdomain = require('express-subdomain');
  * Controllers (route handlers).
  */
 var homeController = require('./controllers/home');
+var appController = require('./controllers/app');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -118,17 +119,11 @@ app.use(function(req, res, next) {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
-
-/**
- * Primary app routes.
- */
-app.get('/', homeController.index);
-
 /**
  * app.breezyblog.io
  */
 var appRouter = express.Router();
-appRouter.get('/', homeController.index);
+appRouter.get('/', appController.dashboard);
 appRouter.get('/login', userController.getLogin);
 appRouter.post('/login', userController.postLogin);
 appRouter.get('/logout', userController.logout);
@@ -145,9 +140,6 @@ appRouter.post('/account/profile', passportConf.isAuthenticated, userController.
 appRouter.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 appRouter.delete('/account', passportConf.isAuthenticated, userController.deleteAccount);
 appRouter.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
-
-//api specific routes
-
 
 app.use(subdomain('app', appRouter));
 
@@ -175,6 +167,13 @@ app.get('/auth/github', passport.authenticate('github', secrets.github.authOptio
 app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login', failureFlash: true }), safeRedirectToReturnTo);
 app.get('/auth/google', passport.authenticate('google', secrets.google.authOptions));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', failureFlash: true }), safeRedirectToReturnTo);
+
+/**
+ * Any other routes
+ * Including www.breezyblog.io and breezyblog.io
+ */
+var homeRouter = express.Router();
+app.get('/', homeController.index);
 
 /**
  * Error Handler.

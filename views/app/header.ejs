@@ -1,0 +1,20 @@
+
+<nav class="container navbar navbar-expand-lg navbar-light bg-light" 
+style="background:none !important; border: none; max-height: 60px">
+<a href="/" class="navbar-brand">
+  <i class="fab fa-apple"></i>Breezy
+</a>
+<div class="w-100 d-flex justify-content-end">
+    <div class="dropdown show">
+      <a class="dropdown-toggle" style="text-decoration: none" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img src="<%= user.getProfilePicture(35) %>"/>
+        <%= user.profile.name || user.email %>&nbsp;<i class="caret"></i>
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left: auto;">
+        <a class="dropdown-item" href="/account">Account</a>
+        <a class="dropdown-item" href="/logout">Logout</a>
+      </div>
+    </div>
+</div>
+</nav>

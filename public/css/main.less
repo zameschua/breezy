@@ -1,8 +1,5 @@
-@import "vendor/bootstrap/bootstrap";
-@import "vendor/v-modal";
-@import "vendor/font-awesome/font-awesome";
-@import "vendor/bootstrap-social";
 @import "themes/shards.css";
+@import "vendor/font-awesome/font-awesome";
 
 // Scaffolding
 // -------------------------
@@ -13,8 +10,10 @@ html {
 }
 
 body {
-  padding-top: 60px;
-  margin-bottom: 75px;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 footer {
@@ -33,7 +32,7 @@ footer {
 /* Validation Styling */
 
 input.ng-invalid.ng-touched {
-  border-color: @brand-danger;
+  border-color: red;
 }
 
 /* Signup Page */
@@ -54,11 +53,11 @@ input.ng-invalid.ng-touched {
     &:last-child { margin-right: 0; }
   }
 
-  &.psw-rank-0 span:nth-child(-n+1) { background: @brand-danger; }
-  &.psw-rank-1 span:nth-child(-n+1) { background: @brand-danger; }
-  &.psw-rank-2 span:nth-child(-n+2) { background: @brand-warning; }
-  &.psw-rank-3 span:nth-child(-n+3) { background: @brand-success; }
-  &.psw-rank-4 span:nth-child(-n+4) { background: darken(@brand-success, 5%); }
+  &.psw-rank-0 span:nth-child(-n+1) { background: red; }
+  &.psw-rank-1 span:nth-child(-n+1) { background: red; }
+  &.psw-rank-2 span:nth-child(-n+2) { background: orange; }
+  &.psw-rank-3 span:nth-child(-n+3) { background: green; }
+  &.psw-rank-4 span:nth-child(-n+4) { background: darken(green, 5%); }
 }
 
 // Navbar

@@ -1,12 +1,21 @@
-<% layout('layout') -%>
+<% layout('app/layout') -%>
 
 <!-- Include Quill stylesheet -->
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 
 <!-- Create the editor container -->
-<div id="editor-container">
-  <p>Hello World!</p>
+<div class="row">
+  <div class="col-8">
+    <div id="editor-container">
+      <p>Hello World!</p>
+    </div>
+    <button class="btn btn-primary float-right mt-3">Publish</button>
+  </div>
+  <div class="col-4">
+    Preview
+  </div>
 </div>
+
 
 <!-- Include the Quill library -->
 <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>

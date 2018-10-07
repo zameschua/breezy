@@ -5,7 +5,7 @@
  * Dashboard page.
  */
 exports.dashboard = function(req, res) {
-  res.render('app/dashboard', {
+  res.render('app/pages/dashboard', {
     title: 'Dashboard'
   });
 };
@@ -15,7 +15,7 @@ exports.dashboard = function(req, res) {
  * Dashboard page.
  */
 exports.editor = function(req, res) {
-  res.render('app/editor', {
+  res.render('app/pages/editor', {
     title: 'Editor'
   });
 };

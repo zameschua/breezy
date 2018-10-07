@@ -3,17 +3,6 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 
-//HMAC version
-// var secrets = require('../config/secrets');
-// function createHash(string) {
-//   if(!string)
-//     return null;
-
-//   var hashKey = secrets.localAuth.hashKey;
-//   var hmac = crypto.createHmac(secrets.localAuth.hashMethod, new Buffer(hashKey, 'utf-8'));
-//   return hmac.update(new Buffer(string, 'utf-8')).digest('hex');
-// }
-
 var instanceMethods = {
   getGravatarUrl: function(size) {
     if (!size) size = 200;
@@ -53,44 +42,40 @@ module.exports = function(db, DataTypes) {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
     },
     password: DataTypes.STRING,
     googleId: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     facebookId: {
       type: DataTypes.STRING,
-      unique: true
-    },
-    twitterId: {
-      type: DataTypes.STRING,
-      unique: true
-    },
-    linkedInId: {
-      type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     githubId: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     resetPasswordExpires: DataTypes.DATE,
     resetPasswordToken: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
     logins: DataTypes.INTEGER,
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-      isEmail: true
+      isEmail: true,
     },
     profile: DataTypes.JSON,
-    tokens: DataTypes.JSON
+    tokens: DataTypes.JSON,
   }, {
-    tableName: 'pl_users',
+    tableName: 'user',
     instanceMethods: instanceMethods,
     classMethods: {
       associate: function(models) {
@@ -143,16 +128,6 @@ module.exports = function(db, DataTypes) {
         name: 'googleIdIndex',
         method: 'BTREE',
         fields: ['googleId']
-      },
-      {
-        name: 'twitterIdIndex',
-        method: 'BTREE',
-        fields: ['twitterId']
-      },
-      {
-        name: 'linkedInIdIndex',
-        method: 'BTREE',
-        fields: ['linkedInId']
       },
       {
         name: 'githubIdIndex',

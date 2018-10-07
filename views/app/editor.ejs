@@ -1,0 +1,30 @@
+<% layout('layout') -%>
+
+<!-- Include Quill stylesheet -->
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+<!-- Create the editor container -->
+<div id="editor-container">
+  <p>Hello World!</p>
+</div>
+
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+  var quill = new Quill('#editor-container', {
+    modules: {
+      syntax: true, // Enable syntax highlighting in code blocks
+      toolbar: [
+        [{ header: [1, 2, false] }],
+        ['bold', 'italic', 'underline'],
+        ['link', 'image', 'blockquote', 'code-block'],
+        [{ 'align': [] }],
+        
+      ]
+    },
+    placeholder: 'Compose an epic post!',
+    theme: 'snow'
+  });
+</script>

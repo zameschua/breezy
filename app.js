@@ -124,6 +124,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  */
 var appRouter = express.Router();
 appRouter.get('/', appController.dashboard);
+appRouter.get('/editor', appController.editor);
+
 appRouter.get('/login', userController.getLogin);
 appRouter.post('/login', userController.postLogin);
 appRouter.get('/logout', userController.logout);

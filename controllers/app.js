@@ -9,3 +9,14 @@ exports.dashboard = function(req, res) {
     title: 'Dashboard'
   });
 };
+
+/**
+ * GET /
+ * Dashboard page.
+ */
+exports.editor = function(req, res) {
+  res.render('app/editor', {
+    title: 'Editor'
+  });
+};
+

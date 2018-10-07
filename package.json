@@ -41,6 +41,7 @@
     "lob": "^3.9.0",
     "lodash": "^4.12.0",
     "lusca": "^1.4.1",
+    "medium-editor": "^5.23.3",
     "method-override": "^2.3.5",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",

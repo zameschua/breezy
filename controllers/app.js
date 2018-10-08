@@ -1,5 +1,7 @@
 "use strict";
 
+var PostRepo = require('../repositories/PostRepo.js');
+
 /**
  * GET /
  * Dashboard page.
@@ -46,6 +48,7 @@ exports.editPost = function(req, res) {
  * POST /drafts/:postId/save
  */
 exports.savePost = function(req, res) {
+  
 };
 
 /**
@@ -54,6 +57,7 @@ exports.savePost = function(req, res) {
  * POST /drafts/:postId/publish
  */
 exports.publishPost = function(req, res) {
+  PostRepo.publishPost(req.params.postId);
 };
 
 /**
@@ -61,6 +65,7 @@ exports.publishPost = function(req, res) {
  * (You can't publish a draft)
  */
 exports.unpublishPost = function(req, res) {
+  PostRepo.unpublishPost(req.params.postId);
 };
 
 /**
@@ -69,6 +74,7 @@ exports.unpublishPost = function(req, res) {
  * POST /drafts/:postId/delete
  */
 exports.deletePost = function(req, res) {
+  PostRepo.deletePost(req.params.postId);
 };
 
 /**

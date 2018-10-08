@@ -9,7 +9,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var secrets = require('./secrets');
 var db = require('../models/sequelize');
-var UserRepo = require('../repositories/UserRepository');
+var UserRepo = require('../repositories/UserRepo');
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);

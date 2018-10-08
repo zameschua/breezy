@@ -13,8 +13,6 @@ module.exports = function(db, DataTypes) {
           allowNull: false,
           unique: true,
         },
-        title: DataTypes.STRING,
-        body: DataTypes.TEXT,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {

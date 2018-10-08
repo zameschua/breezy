@@ -123,9 +123,23 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * app.breezyblog.io
  */
 var appRouter = express.Router();
-appRouter.get('/', appController.dashboard);
-appRouter.get('/editor', appController.editor);
-
+// Dashboard
+appRouter.get('/', appController.renderDashboard);
+// Drafts
+appRouter.get('/drafts', appController.renderDrafts);
+appRouter.get('/drafts/:postId/edit', appController.editPost);
+appRouter.post('/draft/:postId/save', appController.savePost);
+appRouter.get('/drafts/:postId/publish', appController.publishPost);
+appRouter.post('/drafts/:postId/delete', appController.deletePost);
+// Posts
+appRouter.get('/posts', appController.renderPosts);
+appRouter.get('/posts/:postId/edit', appController.editPost);
+appRouter.post('/posts/:postId/save', appController.savePost);
+appRouter.post('/posts/:postId/publish', appController.publishPost);
+appRouter.post('/posts/:postId/delete', appController.deletePost);
+//
+appRouter.get('/editor', appController.editor); // TODO: Remove this later, for testing only
+// Auth
 appRouter.get('/login', userController.getLogin);
 appRouter.post('/login', userController.postLogin);
 appRouter.get('/logout', userController.logout);

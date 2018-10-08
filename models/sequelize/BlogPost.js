@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(db, DataTypes) {
-    var BlogPost = db.define('BlogPost', {
+    var Post = db.define('Post', {
         id: {
           type: DataTypes.INTEGER,
           autoIncrement: true,
@@ -10,11 +10,16 @@ module.exports = function(db, DataTypes) {
         },
         blogId: DataTypes.INTEGER,
         authorId: DataTypes.INTEGER,
+        title: DataTypes.STRING,
+        body: DataTypes.TEXT,
+        draftTitle: DataTypes.STRING,
+        draftBody: DataTypes.TEXT,
+        isPublished: DataTypes.BOOLEAN,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {
-        tableName: 'blogPost',
+        tableName: 'post',
     });
 
-    return BlogPost;
+    return Post;
 };

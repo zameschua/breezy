@@ -72,6 +72,7 @@ module.exports = function(db, DataTypes) {
       allowNull: false,
       isEmail: true,
     },
+    currentBlogId: DataTypes.INTEGER,
     profile: DataTypes.JSON,
     tokens: DataTypes.JSON,
   }, {

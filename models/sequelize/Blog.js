@@ -13,6 +13,11 @@ module.exports = function(db, DataTypes) {
           allowNull: false,
           unique: true,
         },
+        subdomain: {  // Allow user to get blog posts from subdomain.breezyblog.io
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {

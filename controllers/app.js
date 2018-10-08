@@ -13,9 +13,9 @@ exports.renderDashboard = function(req, res) {
 };
 
 /**
- * GET /posts/:postId/edit
+ * GET /posts
  * or
- * GET /drafts/:postId/edit
+ * GET /drafts
  */
 exports.renderPosts = function(req, res) {
   res.render('app/pages/editor', {
@@ -38,6 +38,28 @@ exports.renderDrafts = function(req, res) {
  * GET /posts/:postId/edit
  * or
  * GET /drafts/:postId/edit
+ */
+exports.renderEditPost = function(req, res) {
+  res.render('app/pages/editor', {
+    title: 'Edit post {postnum}'
+  });
+};
+
+/**
+ * POST /drafts/:postId/edit
+ */
+exports.createDraft = function(req, res) {
+  PostRepo.createDraft(req.user.currentBlogId, req.user.id)
+      .then((post) => {
+        console.log("TEST");
+        res.redirect(`/posts/${post.id}/edit`);
+      })
+};
+
+/**
+ * POST /posts/:postId/edit
+ * or
+ * POST /drafts/:postId/edit
  */
 exports.editPost = function(req, res) {
 };

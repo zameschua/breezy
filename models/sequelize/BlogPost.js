@@ -14,7 +14,10 @@ module.exports = function(db, DataTypes) {
         body: DataTypes.TEXT,
         draftTitle: DataTypes.STRING,
         draftBody: DataTypes.TEXT,
-        isPublished: DataTypes.BOOLEAN,
+        isPublished: {
+          type: DataTypes.BOOLEAN,
+          defaultValue: false
+        },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {

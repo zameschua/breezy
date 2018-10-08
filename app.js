@@ -127,13 +127,14 @@ var appRouter = express.Router();
 appRouter.get('/', appController.renderDashboard);
 // Drafts
 appRouter.get('/drafts', appController.renderDrafts);
-appRouter.get('/drafts/:postId/edit', appController.editPost);
+appRouter.post('/drafts', appController.createDraft);
+appRouter.get('/drafts/:postId/edit', appController.renderEditPost);
 appRouter.post('/draft/:postId/save', appController.savePost);
 appRouter.get('/drafts/:postId/publish', appController.publishPost);
 appRouter.post('/drafts/:postId/delete', appController.deletePost);
 // Posts
 appRouter.get('/posts', appController.renderPosts);
-appRouter.get('/posts/:postId/edit', appController.editPost);
+appRouter.get('/posts/:postId/edit', appController.renderEditPost);
 appRouter.post('/posts/:postId/save', appController.savePost);
 appRouter.post('/posts/:postId/publish', appController.publishPost);
 appRouter.post('/posts/:postId/delete', appController.deletePost);

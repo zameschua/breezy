@@ -2,6 +2,10 @@
 <nav class="container navbar navbar-expand-lg navbar-light bg-light" 
 style="background:none !important; border: none; max-height: 60px">
 <div class="w-100 d-flex justify-content-end">
+    <form action="/drafts" method="post">
+      <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+      <button>Create post on {current block name}</button>
+    </form>
     <div class="dropdown show">
       <a class="dropdown-toggle" style="text-decoration: none" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <img src="<%= user.getProfilePicture(35) %>"/>

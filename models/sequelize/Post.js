@@ -50,6 +50,11 @@ module.exports = function(db, DataTypes) {
           defaultValue: false,
           allowNull: false,
         },
+        viewCount: {
+          type: DataTypes.INTEGER,
+          defaultValue: 0,
+          allowNull: false,
+        },
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {

@@ -14,23 +14,19 @@ exports.renderDashboard = function(req, res) {
 
 /**
  * GET /posts
- * or
- * GET /drafts
  */
 exports.renderPosts = function(req, res) {
-  res.render('app/pages/editor', {
-    title: 'Editor'
+  res.render('app/pages/posts', {
+    title: 'Posts',
   });
 };
 
 /**
- * GET /posts/:postId/edit
- * or
- * GET /drafts/:postId/edit
+ * GET /drafts
  */
 exports.renderDrafts = function(req, res) {
-  res.render('app/pages/editor', {
-    title: 'Editor'
+  res.render('app/pages/posts', {
+    title: 'Drafts',
   });
 };
 
@@ -41,27 +37,19 @@ exports.renderDrafts = function(req, res) {
  */
 exports.renderEditPost = function(req, res) {
   res.render('app/pages/editor', {
-    title: 'Edit post {postnum}'
+    title: `Edit post ${req.params.postId}`,
+    postId: req.params.postId,
   });
 };
 
 /**
- * POST /drafts/:postId/edit
+ * POST /posts
  */
-exports.createDraft = function(req, res) {
-  PostRepo.createDraft(req.user.currentBlogId, req.user.id)
+exports.createPost = function(req, res) {
+  PostRepo.createPost(req.user.currentBlogId, req.user.id)
       .then((post) => {
-        console.log("TEST");
         res.redirect(`/posts/${post.id}/edit`);
       })
-};
-
-/**
- * POST /posts/:postId/edit
- * or
- * POST /drafts/:postId/edit
- */
-exports.editPost = function(req, res) {
 };
 
 /**
@@ -70,7 +58,13 @@ exports.editPost = function(req, res) {
  * POST /drafts/:postId/save
  */
 exports.savePost = function(req, res) {
-  
+  try {
+    PostRepo.updatePost(req.params.postId, req.body.title, req.body.body, req.body.htmlBody).then(() => {
+      res.status(200).json(req.body);
+    });
+  } catch (err) {
+    res.status(500).json({err: err.message});
+  }
 };
 
 /**
@@ -79,7 +73,13 @@ exports.savePost = function(req, res) {
  * POST /drafts/:postId/publish
  */
 exports.publishPost = function(req, res) {
-  PostRepo.publishPost(req.params.postId);
+  try {
+    PostRepo.publishPost(req.params.postId).then(post => {
+      res.status(200).json({redirect: '/'}); // Should redirect to the new post? Or preview
+    });
+  } catch (err) {
+    res.status(500).json({err: err.message});
+  }
 };
 
 /**

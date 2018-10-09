@@ -7,7 +7,7 @@ repo.getPost = function(postId) {
   return db.Post.findById(postId);
 }
 
-repo.createDraft = function(blogId, authorId) {
+repo.createPost = function(blogId, authorId) {
   return db.Post.create({
     blogId: blogId,
     authorId: authorId,
@@ -15,21 +15,24 @@ repo.createDraft = function(blogId, authorId) {
   });
 }
 
-repo.updateDraft = function(postId) {
+repo.updatePost = function(postId, title, body, htmlBody) {
+  debugger;
   return db.Post.update({
     draftTitle: title,
     draftBody: body,
+    draftHtmlBody: htmlBody,
   }, {where: {id: postId}});
 }
 
 repo.publishPost = function(postId) {
   return db.Post.findById(postId)
       .then(post => {
-        post.publishedTitle = post.draftTitle;
-        post.publishedBody = post.draftBody;
+        post.title = post.draftTitle;
+        post.body = post.draftBody;
+        post.htmlBody = post.draftHtmlBody;
         post.isPublished = true;
-        post.save();
-      })
+        return post.save();
+      });
 }
 
 repo.unpublishPost = function(postId) {

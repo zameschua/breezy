@@ -34,7 +34,6 @@ var homeController = require('./controllers/home');
 var appController = require('./controllers/app');
 var userController = require('./controllers/user');
 var apiController = require('./controllers/api');
-var contactController = require('./controllers/contact');
 
 /**
  * API keys and Passport configuration.
@@ -127,10 +126,10 @@ var appRouter = express.Router();
 appRouter.get('/', appController.renderDashboard);
 // Drafts
 appRouter.get('/drafts', appController.renderDrafts);
-appRouter.post('/drafts', appController.createDraft);
+appRouter.post('/drafts', appController.createPost);
 appRouter.get('/drafts/:postId/edit', appController.renderEditPost);
-appRouter.post('/draft/:postId/save', appController.savePost);
-appRouter.get('/drafts/:postId/publish', appController.publishPost);
+appRouter.post('/drafts/:postId/save', appController.savePost);
+appRouter.post('/drafts/:postId/publish', appController.publishPost);
 appRouter.post('/drafts/:postId/delete', appController.deletePost);
 // Posts
 appRouter.get('/posts', appController.renderPosts);

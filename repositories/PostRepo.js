@@ -3,6 +3,19 @@
 var db = require('../models/sequelize');
 var repo = {};
 
+/**
+ * Gets a list of posts belonging to a blog
+ */
+repo.getPosts = function(blogId) {
+  // SELECT * WHERE blogId=blogId
+  return db.Blog.findById(blogId).then(function(blog) {
+    return blog.getPosts().then(function(posts) {
+      console.log(posts);
+      console.log(blogId);
+    });
+  })
+}
+
 repo.getPost = function(postId) {
   return db.Post.findById(postId);
 }
@@ -16,7 +29,6 @@ repo.createPost = function(blogId, authorId) {
 }
 
 repo.updatePost = function(postId, title, body, htmlBody) {
-  debugger;
   return db.Post.update({
     draftTitle: title,
     draftBody: body,

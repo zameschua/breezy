@@ -8,10 +8,6 @@ module.exports = function(db, DataTypes) {
           allowNull: false,
           primaryKey: true,
         },
-        blogId: {
-          type: DataTypes.INTEGER,
-          allowNull: true, // TODO: Change to false later after creating the blog flow
-        },
         authorId: {
           type: DataTypes.INTEGER,
           allowNull: false,

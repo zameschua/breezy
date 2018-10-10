@@ -23,6 +23,11 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 
+db.Blog.hasMany(db.Post, { foreignKey: 'blogId'} );
+db.User.belongsToMany(db.Blog, { through: db.Membership, foreignKey: 'userId' });
+db.Blog.belongsToMany(db.User, { through: db.Membership, foreignKey: 'blogId' });
+sequelize.sync;
+
 module.exports = _.extend({
   sequelize: sequelize,
   Sequelize: Sequelize

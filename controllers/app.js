@@ -16,9 +16,12 @@ exports.renderDashboard = function(req, res) {
  * GET /posts
  */
 exports.renderPosts = function(req, res) {
-  res.render('app/pages/posts', {
-    title: 'Posts',
-  });
+  PostRepo.getPosts(req.user.currentBlogId).then(function(posts) {
+    res.render('app/pages/posts', {
+      title: 'Posts',
+      posts: posts,
+    });
+  })
 };
 
 /**

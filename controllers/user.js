@@ -5,6 +5,8 @@ var async = require('neo-async');
 var passport = require('passport');
 
 var UserRepo = require('../repositories/UserRepo.js');
+const BlogRepo = require('../repositories/BlogRepo.js');
+const MembershipRepo = require('../repositories/MembershipRepo.js');
 var emailService = require('../services/emailService.js');
 
 
@@ -74,13 +76,35 @@ exports.postSignup = function(req, res, next) {
       email: req.body.email,
       password: req.body.password,
       profile: {},
-      tokens: {}
+      tokens: {},
     })
     .then(function(user) {
       req.logIn(user, function(err) {
         if (err) return next(err);
-        req.flash('success', { msg: 'Your account has been created and you\'ve been logged in.' });
-        res.redirect('/');
+        
+        // Create the blog
+        BlogRepo.createBlog("username", "username").then(function(blog) {
+          // Create the membership linking the blog and the user
+          MembershipRepo.createMembership(user.id, blog.id).then(function(membership) {
+            // Update currentBlogId in user. For now 1 user will only have 1 blog and vice versa.
+            user.currentBlogId = blog.id;
+            user.save({fields: ['currentBlogId']}).then(function() {
+
+              req.flash('success', { msg: 'Your account has been created and you\'ve been logged in.' });
+              res.redirect('/');
+
+            }).catch(function(err) {
+              req.flash('errors', { msg: err });
+              return res.redirect('/login');
+            })
+          }).catch(function(err) {
+            req.flash('errors', { msg: err });
+            return res.redirect('/login');
+          });
+        }).catch(function(err) {
+          req.flash('errors', { msg: err });
+          return res.redirect('/login');
+        })
       });
     })
     .catch(function(err) {

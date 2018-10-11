@@ -16,7 +16,8 @@ exports.renderDashboard = function(req, res) {
  * GET /posts
  */
 exports.renderPosts = function(req, res) {
-  PostRepo.getPosts(req.user.currentBlogId).then(function(posts) {
+  PostRepo.getPosts(req.user.currentBlogId, true).then(function(posts) {
+    console.log(posts);
     res.render('app/pages/posts', {
       title: 'Posts',
       posts: posts,
@@ -28,9 +29,13 @@ exports.renderPosts = function(req, res) {
  * GET /drafts
  */
 exports.renderDrafts = function(req, res) {
-  res.render('app/pages/posts', {
-    title: 'Drafts',
-  });
+  PostRepo.getPosts(req.user.currentBlogId, false).then(function(posts) {
+    console.log(posts);
+    res.render('app/pages/posts', {
+      title: 'Posts',
+      posts: posts,
+    });
+  })
 };
 
 /**

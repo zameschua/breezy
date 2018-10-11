@@ -6,13 +6,20 @@ var repo = {};
 /**
  * Gets a list of posts belonging to a blog
  */
-repo.getPosts = function(blogId) {
+repo.getPosts = function(blogId, isPublished) {
   // SELECT * WHERE blogId=blogId
   return db.Blog.findById(blogId).then(function(blog) {
-    return blog.getPosts().then(function(posts) {
-      console.log(posts);
-      console.log(blogId);
+    return blog.getPosts({
+      where: {
+        isPublished: isPublished,
+      },
+    }).then(function(posts) {
+      return posts.map(function(post) {
+        return post.get();
+      });
     });
+  }).catch(function(err) {
+    console.error("Error trying to get posts from blogId: ", err.message);
   })
 }
 
